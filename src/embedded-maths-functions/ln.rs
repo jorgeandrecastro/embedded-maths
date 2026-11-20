@@ -48,9 +48,7 @@ pub fn ln(x: f32) -> f32 {
     let s2 = s * s;
 
     // 2·s·(1 + s²/3 + s⁴/5 + s⁶/7 + s⁸/9), évalué par Horner
-    let series = 1.0
-        + s2 * (1.0 / 3.0
-            + s2 * (1.0 / 5.0 + s2 * (1.0 / 7.0 + s2 * (1.0 / 9.0))));
+    let series = 1.0 + s2 * (1.0 / 3.0 + s2 * (1.0 / 5.0 + s2 * (1.0 / 7.0 + s2 * (1.0 / 9.0))));
     let ln_m = 2.0 * s * series;
 
     exp as f32 * LN_2 + ln_m
@@ -79,7 +77,10 @@ mod tests {
             let expected = k as f32 * LN_10;
             let got = ln(x);
             let rel = ((got - expected) / expected).abs();
-            assert!(rel <= MAX_REL_ERROR, "k={k}: {got} vs {expected} (rel {rel})");
+            assert!(
+                rel <= MAX_REL_ERROR,
+                "k={k}: {got} vs {expected} (rel {rel})"
+            );
         }
     }
 

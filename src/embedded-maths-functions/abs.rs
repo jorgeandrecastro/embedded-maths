@@ -68,13 +68,13 @@ mod tests {
             assert!(got.is_nan(), "bits = {bits:#010x}");
             assert_eq!(got.to_bits(), bits & MAGNITUDE_MASK, "bits = {bits:#010x}");
         } else {
-            assert_eq!(
-                got.to_bits(),
-                reference(x).to_bits(),
-                "bits = {bits:#010x}"
-            );
+            assert_eq!(got.to_bits(), reference(x).to_bits(), "bits = {bits:#010x}");
         }
-        assert_eq!(got.to_bits() & SIGN_BIT, 0, "signe non effacé, bits = {bits:#010x}");
+        assert_eq!(
+            got.to_bits() & SIGN_BIT,
+            0,
+            "signe non effacé, bits = {bits:#010x}"
+        );
     }
 
     #[test]

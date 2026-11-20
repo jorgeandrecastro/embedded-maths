@@ -41,14 +41,17 @@ mod tests {
             let expected = k as f32;
             let got = log10(pow10(k));
             let rel = ((got - expected) / expected).abs();
-            assert!(rel <= MAX_REL_ERROR, "k={k}: {got} vs {expected} (rel {rel})");
+            assert!(
+                rel <= MAX_REL_ERROR,
+                "k={k}: {got} vs {expected} (rel {rel})"
+            );
         }
     }
 
     #[test]
     fn known_values() {
         // log10(2) et log10(5) : constantes indépendantes de notre `ln`.
-        assert!((log10(2.0) - 0.301_03).abs() <= 1e-5);
+        assert!((log10(2.0) - core::f32::consts::LOG10_2).abs() <= 1e-5);
         assert!((log10(5.0) - 0.698_97).abs() <= 1e-5);
     }
 

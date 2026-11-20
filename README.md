@@ -2,6 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/embedded-maths.svg)](https://crates.io/crates/embedded-maths)
 [![Documentation](https://docs.rs/embedded-maths/badge.svg)](https://docs.rs/embedded-maths)
+[![CI](https://github.com/jorgeandrecastro/embedded-maths/actions/workflows/ci.yml/badge.svg)](https://github.com/jorgeandrecastro/embedded-maths/actions/workflows/ci.yml)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
 [![GitHub](https://img.shields.io/badge/GitHub-jorgeandrecastro-181717?logo=github)](https://github.com/jorgeandrecastro/embedded-maths)
 
@@ -14,7 +15,7 @@ exponentials, statistics, vectors, matrices, and quaternions.
 
 ```toml
 [dependencies]
-embedded-maths = "0.1"
+embedded-maths = "0.2"
 ```
 
 ## Function calls
@@ -117,8 +118,6 @@ they are available:
 - [`embedded-stats-f32`](https://crates.io/crates/embedded-stats-f32) for statistics
 - [`embedded-vector`](https://github.com/jorgeandrecastro/embedded-vector), [`embedded-matrix`](https://github.com/jorgeandrecastro/embedded-matrix), and [`embedded-quaternion-f32`](https://github.com/jorgeandrecastro/embedded-quaternion-f32) for linear algebra
 
-These implementations avoid `micromath` and are designed for `no_std`
-embedded targets.
 
 ## License
 

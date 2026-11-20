@@ -52,11 +52,7 @@ mod tests {
         let prod = a * inv;
         assert!(prod.approx_eq(&Matrix2x2::identity(), 1e-5));
 
-        let m3 = Matrix3x3::new([
-            [1.0, 2.0, 3.0],
-            [0.0, 1.0, 4.0],
-            [5.0, 6.0, 0.0],
-        ]);
+        let m3 = Matrix3x3::new([[1.0, 2.0, 3.0], [0.0, 1.0, 4.0], [5.0, 6.0, 0.0]]);
         let x = solve_3x3(m3, [1.0, 2.0, 3.0]).unwrap();
         let rhs = m3 * x;
         assert!((rhs[0] - 1.0).abs() < 1e-4);

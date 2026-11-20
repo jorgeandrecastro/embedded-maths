@@ -20,13 +20,13 @@
 //!
 //! # API groups
 //!
-//! - [`sin`], [`cos`], [`tan`], [`sincos`]
-//! - [`asin`], [`acos`], [`atan`], [`atan2`]
-//! - [`sqrt`], [`invsqrt`], [`hypot`]
-//! - [`exp`], [`ln`], [`log`], [`log2`], [`log10`]
-//! - [`powf`], [`powi`], [`inv`], [`recip`]
-//! - [`ceil`], [`floor`], [`round`], [`trunc`], [`fract`]
-//! - [`abs`], [`signum`], [`copysign`]
+//! - [`sin()`], [`cos()`], [`tan()`], [`sin_cos()`]
+//! - [`asin()`], [`acos()`], [`atan()`], [`atan2()`]
+//! - [`sqrt()`], [`invsqrt()`], [`hypot()`]
+//! - [`exp()`], [`ln()`], [`log()`], [`log2()`], [`log10()`]
+//! - [`powf()`], [`powi()`], [`inv()`], [`recip()`]
+//! - [`ceil()`], [`floor()`], [`round()`], [`trunc()`], [`fract()`]
+//! - [`abs()`], [`signum()`], [`copysign()`]
 //! - [`mean`], [`variance`], [`std_dev`], [`StreamingStats`]
 //! - [`Vec2`], [`Vec3`], [`Vec4`], [`Quaternion`]
 //! - [`Matrix2x2`], [`Matrix3x3`]
@@ -64,10 +64,10 @@ pub mod atan2;
 pub mod ceil;
 #[path = "embedded-maths-functions/copysign.rs"]
 pub mod copysign;
-#[path = "embedded-maths-functions/cosh.rs"]
-pub mod cosh;
 #[path = "embedded-maths-functions/cos.rs"]
 pub mod cos;
+#[path = "embedded-maths-functions/cosh.rs"]
+pub mod cosh;
 #[path = "embedded-maths-functions/diveuclid.rs"]
 pub mod div_euclid;
 #[path = "embedded-maths-functions/diveuclidean.rs"]
@@ -115,18 +115,18 @@ pub mod tan;
 #[path = "embedded-maths-functions/trunc.rs"]
 pub mod trunc;
 
+#[path = "matrix.rs"]
+pub mod matrix;
+#[path = "quaternion.rs"]
+pub mod quaternion;
 #[path = "statistics.rs"]
 pub mod statistics;
 #[path = "vector.rs"]
 pub mod vector;
-#[path = "quaternion.rs"]
-pub mod quaternion;
-#[path = "matrix.rs"]
-pub mod matrix;
 
 pub use embedded_stats_f32::{
-    mean as kahan_mean, std_dev as kahan_std_dev, variance as kahan_variance, StatsError,
-    StreamingStats,
+    StatsError, StreamingStats, mean as kahan_mean, std_dev as kahan_std_dev,
+    variance as kahan_variance,
 };
 
 pub use abs::abs;
@@ -148,11 +148,13 @@ pub use inv::inv;
 pub use invsqrt::inv_sqrt as invsqrt;
 pub use ln::ln;
 pub use log::log;
-pub use log10::log10;
 pub use log2::log2;
+pub use log10::log10;
+pub use matrix::{Matrix2x2, Matrix3x3, MatrixError};
 pub use mul_add::mul_add;
 pub use powf::powf;
 pub use powi::powi;
+pub use quaternion::Quaternion;
 pub use recip::recip;
 pub use rem_euclid::rem_euclid;
 pub use round::round;
@@ -160,9 +162,7 @@ pub use signum::signum;
 pub use sin::sin;
 pub use sin_cos::sin_cos;
 pub use sqrt::sqrt;
+pub use statistics::{mean, std_dev, variance};
 pub use tan::tan;
 pub use trunc::trunc;
-pub use statistics::{mean, variance, std_dev};
 pub use vector::{Vec2, Vec3, Vec4, VecError};
-pub use quaternion::Quaternion;
-pub use matrix::{Matrix2x2, Matrix3x3, MatrixError};

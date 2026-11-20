@@ -188,7 +188,10 @@ mod tests {
         // x^(a+b) = x^a · x^b
         for i in 1..=30 {
             let x = 0.9 + i as f32 * 0.01;
-            assert!(rel_close(powi(x, 17 + 9), powi(x, 17) * powi(x, 9)), "x={x}");
+            assert!(
+                rel_close(powi(x, 17 + 9), powi(x, 17) * powi(x, 9)),
+                "x={x}"
+            );
         }
     }
 }

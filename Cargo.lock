@@ -22,7 +22,7 @@ checksum = "66196a6fdee49f4474c1702ca72d52b7548f3f29ed33728cf6e1ae67b0a19397"
 
 [[package]]
 name = "embedded-maths"
-version = "0.1.0"
+version = "0.2.0"
 dependencies = [
  "embedded-exp-f32",
  "embedded-f32-sqrt",

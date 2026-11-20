@@ -9,8 +9,8 @@
 // π/2 découpé en trois parties (Cody-Waite) : les deux premières ont peu de
 // bits significatifs, donc k·PIO2_x est exact pour k modéré.
 const PIO2_1: f32 = 1.570_312_5;
-const PIO2_2: f32 = 4.837_512_969_970_703e-4;
-const PIO2_3: f32 = 7.549_789_948_768_648e-8;
+const PIO2_2: f32 = 4.837_513e-4;
+const PIO2_3: f32 = 7.549_79e-8;
 
 /// Sinus et cosinus de `r` pour |r| ≤ π/4.
 #[inline]
@@ -103,7 +103,11 @@ mod tests {
         for i in -200..=200 {
             let x = i as f32 * 0.137;
             let (s, c) = sin_cos(x);
-            assert!((s * s + c * c - 1.0).abs() <= 4e-6, "x={x}: {}", s * s + c * c);
+            assert!(
+                (s * s + c * c - 1.0).abs() <= 4e-6,
+                "x={x}: {}",
+                s * s + c * c
+            );
         }
     }
 

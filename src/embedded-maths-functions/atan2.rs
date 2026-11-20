@@ -59,7 +59,7 @@ fn atan_unit(t: f32) -> f32 {
 ///
 /// Retourne `NaN` si `y` ou `x` est `NaN`.
 pub fn atan2(y: f32, x: f32) -> f32 {
-    if y != y || x != x {
+    if y.is_nan() || x.is_nan() {
         return f32::NAN;
     }
 
@@ -120,7 +120,10 @@ mod tests {
         ];
         for &(y, x, attendu) in vecteurs {
             let r = atan2(y, x);
-            assert!((r - attendu).abs() <= TOL, "atan2({y}, {x}) = {r}, attendu {attendu}");
+            assert!(
+                (r - attendu).abs() <= TOL,
+                "atan2({y}, {x}) = {r}, attendu {attendu}"
+            );
         }
     }
 
@@ -140,7 +143,14 @@ mod tests {
 
     #[test]
     fn axes() {
-        for &s in &[1.0f32, 1e-30, 1e30, f32::MAX, f32::MIN_POSITIVE, f32::from_bits(1)] {
+        for &s in &[
+            1.0f32,
+            1e-30,
+            1e30,
+            f32::MAX,
+            f32::MIN_POSITIVE,
+            f32::from_bits(1),
+        ] {
             assert_eq!(atan2(s, 0.0), FRAC_PI_2);
             assert_eq!(atan2(s, -0.0), FRAC_PI_2);
             assert_eq!(atan2(-s, 0.0), -FRAC_PI_2);
@@ -220,7 +230,11 @@ mod tests {
         for i in 0..5000 {
             let t = (i as f32) * 0.0123;
             let (y, x) = (t.sin() * 3.0, t.cos() * 3.0);
-            assert_eq!(atan2(-y, x).to_bits(), (-atan2(y, x)).to_bits(), "y = {y}, x = {x}");
+            assert_eq!(
+                atan2(-y, x).to_bits(),
+                (-atan2(y, x)).to_bits(),
+                "y = {y}, x = {x}"
+            );
         }
     }
 

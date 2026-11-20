@@ -85,7 +85,10 @@ mod tests {
         ];
         for &(x, expected) in cases {
             let got = exp(x);
-            assert!(rel_close(got, expected), "exp({x}) = {got}, attendu {expected}");
+            assert!(
+                rel_close(got, expected),
+                "exp({x}) = {got}, attendu {expected}"
+            );
         }
     }
 
@@ -121,7 +124,10 @@ mod tests {
         ];
         for &(x, expected) in cases {
             let got = cosh(x);
-            assert!(rel_close(got, expected), "cosh({x}) = {got}, attendu {expected}");
+            assert!(
+                rel_close(got, expected),
+                "cosh({x}) = {got}, attendu {expected}"
+            );
             assert!(rel_close(cosh(-x), expected), "cosh(-{x})");
         }
     }

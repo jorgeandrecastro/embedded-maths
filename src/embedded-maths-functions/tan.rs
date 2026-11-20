@@ -52,7 +52,10 @@ mod tests {
         ];
         for &(x, expected) in cases {
             let got = tan(x);
-            assert!(rel_close(got, expected), "tan({x}) = {got}, attendu {expected}");
+            assert!(
+                rel_close(got, expected),
+                "tan({x}) = {got}, attendu {expected}"
+            );
         }
     }
 

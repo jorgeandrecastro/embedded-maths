@@ -44,7 +44,10 @@ mod tests {
             let expected = k as f32 * LOG2_10;
             let got = log2(pow10(k));
             let rel = ((got - expected) / expected).abs();
-            assert!(rel <= MAX_REL_ERROR, "k={k}: {got} vs {expected} (rel {rel})");
+            assert!(
+                rel <= MAX_REL_ERROR,
+                "k={k}: {got} vs {expected} (rel {rel})"
+            );
         }
     }
 

@@ -19,8 +19,8 @@
 //! | `NaN` or `±Infinity` input/output | Returns `Err(StatsError::NonFiniteValue)` |
 
 pub use embedded_stats_f32::{
-    mean as kahan_mean, std_dev as kahan_std_dev, variance as kahan_variance, StatsError,
-    StreamingStats,
+    StatsError, StreamingStats, mean as kahan_mean, std_dev as kahan_std_dev,
+    variance as kahan_variance,
 };
 
 /// Computes the arithmetic mean of `slice` using Kahan compensated summation.

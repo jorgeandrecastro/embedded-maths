@@ -39,13 +39,7 @@ pub fn rotate_yz(q: Quaternion, angle: f32) -> Quaternion {
 }
 
 /// Projects a 4D quaternion point through 3D to 2D screen coordinates.
-pub fn project_2d(
-    q: Quaternion,
-    cx: f32,
-    cy: f32,
-    dist_4d: f32,
-    dist_3d: f32,
-) -> (i16, i16, f32) {
+pub fn project_2d(q: Quaternion, cx: f32, cy: f32, dist_4d: f32, dist_3d: f32) -> (i16, i16, f32) {
     q.project_2d(cx, cy, dist_4d, dist_3d)
 }
 

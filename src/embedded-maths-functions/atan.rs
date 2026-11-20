@@ -45,7 +45,7 @@ const P3: f32 = 0.080_537_445;
 ///
 /// Retourne `NaN` si `x` est `NaN`.
 pub fn atan(x: f32) -> f32 {
-    if x != x {
+    if x.is_nan() {
         return x;
     }
 
@@ -100,7 +100,10 @@ mod tests {
         ];
         for &(x, attendu) in vecteurs {
             let r = atan(x);
-            assert!((r - attendu).abs() <= TOL, "atan({x}) = {r}, attendu {attendu}");
+            assert!(
+                (r - attendu).abs() <= TOL,
+                "atan({x}) = {r}, attendu {attendu}"
+            );
         }
     }
 
@@ -181,7 +184,10 @@ mod tests {
         let mut x = 0.01f32;
         while x < 100.0 {
             let somme = atan(x) + atan(1.0 / x);
-            assert!((somme - FRAC_PI_2).abs() <= 2.0 * TOL, "x = {x}, somme = {somme}");
+            assert!(
+                (somme - FRAC_PI_2).abs() <= 2.0 * TOL,
+                "x = {x}, somme = {somme}"
+            );
             x *= 1.013;
         }
     }

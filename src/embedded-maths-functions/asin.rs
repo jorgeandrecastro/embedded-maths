@@ -40,7 +40,7 @@ const T6: f32 = 231.0 / 13312.0;
 const T7: f32 = 143.0 / 10240.0;
 
 // Coefficients A&S 4.4.45.
-const C0: f32 = 1.570_796_3;
+const C0: f32 = FRAC_PI_2;
 const C1: f32 = -0.214_598_8;
 const C2: f32 = 0.088_978_99;
 const C3: f32 = -0.050_174_304;
@@ -57,17 +57,15 @@ pub fn asin(x: f32) -> f32 {
     let a = f32::from_bits(bits & !SIGN_BIT);
 
     // Capte NaN, ±∞ et |x| > 1 en une comparaison.
-    if !(a <= 1.0) {
+    if a.is_nan() || a > 1.0 {
         return f32::NAN;
     }
 
     let r = if a <= TAYLOR_MAX {
         let x2 = a * a;
-        a * (1.0
-            + x2 * (T1 + x2 * (T2 + x2 * (T3 + x2 * (T4 + x2 * (T5 + x2 * (T6 + x2 * T7)))))))
+        a * (1.0 + x2 * (T1 + x2 * (T2 + x2 * (T3 + x2 * (T4 + x2 * (T5 + x2 * (T6 + x2 * T7)))))))
     } else {
-        let p = C0
-            + a * (C1 + a * (C2 + a * (C3 + a * (C4 + a * (C5 + a * (C6 + a * C7))))));
+        let p = C0 + a * (C1 + a * (C2 + a * (C3 + a * (C4 + a * (C5 + a * (C6 + a * C7))))));
         FRAC_PI_2 - sqrt(1.0 - a).unwrap_or(0.0) * p
     };
 
@@ -92,17 +90,20 @@ mod tests {
         let vecteurs: &[(f32, f32)] = &[
             (0.0, 0.0),
             (0.5, consts::FRAC_PI_6),
-            (0.707_106_8, consts::FRAC_PI_4),
+            (consts::FRAC_1_SQRT_2, consts::FRAC_PI_4),
             (0.866_025_4, consts::FRAC_PI_3),
             (1.0, consts::FRAC_PI_2),
             (-0.5, -consts::FRAC_PI_6),
-            (-0.707_106_8, -consts::FRAC_PI_4),
+            (-consts::FRAC_1_SQRT_2, -consts::FRAC_PI_4),
             (-0.866_025_4, -consts::FRAC_PI_3),
             (-1.0, -consts::FRAC_PI_2),
         ];
         for &(x, attendu) in vecteurs {
             let r = asin(x);
-            assert!((r - attendu).abs() <= TOL, "asin({x}) = {r}, attendu {attendu}");
+            assert!(
+                (r - attendu).abs() <= TOL,
+                "asin({x}) = {r}, attendu {attendu}"
+            );
         }
     }
 
@@ -212,7 +213,10 @@ mod tests {
             let x = -1.0 + 2.0 * (i as f32) / 10_000.0;
             let x = x.clamp(-1.0, 1.0);
             let retour = (asin(x) as f64).sin();
-            assert!((retour - x as f64).abs() <= 1e-6, "x = {x}, retour = {retour}");
+            assert!(
+                (retour - x as f64).abs() <= 1e-6,
+                "x = {x}, retour = {retour}"
+            );
         }
     }
 

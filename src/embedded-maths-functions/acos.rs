@@ -27,11 +27,11 @@
 //!
 //! Résultat dans `[0, π]`.
 
-use core::f32::consts::PI;
+use core::f32::consts::{FRAC_PI_2, PI};
 use embedded_f32_sqrt::sqrt;
 
 // Coefficients A&S 4.4.46.
-const C0: f32 = 1.570_796_3;
+const C0: f32 = FRAC_PI_2;
 const C1: f32 = -0.214_598_8;
 const C2: f32 = 0.088_978_99;
 const C3: f32 = -0.050_174_304;
@@ -47,21 +47,16 @@ pub fn acos(x: f32) -> f32 {
     let a = if x < 0.0 { -x } else { x };
 
     // `!(a <= 1.0)` capte NaN et |x| > 1 en une comparaison.
-    if !(a <= 1.0) {
+    if a.is_nan() || a > 1.0 {
         return f32::NAN;
     }
 
     // Horner.
-    let p = C0
-        + a * (C1 + a * (C2 + a * (C3 + a * (C4 + a * (C5 + a * (C6 + a * C7))))));
+    let p = C0 + a * (C1 + a * (C2 + a * (C3 + a * (C4 + a * (C5 + a * (C6 + a * C7))))));
     // Ici 1.0 - a ∈ [0, 1] (domaine déjà validé) : l'Err n'arrive jamais.
     let r = sqrt(1.0 - a).unwrap_or(0.0) * p;
 
-    if x < 0.0 {
-        PI - r
-    } else {
-        r
-    }
+    if x < 0.0 { PI - r } else { r }
 }
 
 #[cfg(test)]
@@ -77,17 +72,20 @@ mod tests {
         let vecteurs: &[(f32, f32)] = &[
             (1.0, 0.0),
             (0.866_025_4, consts::FRAC_PI_6),
-            (0.707_106_8, consts::FRAC_PI_4),
+            (consts::FRAC_1_SQRT_2, consts::FRAC_PI_4),
             (0.5, consts::FRAC_PI_3),
             (0.0, consts::FRAC_PI_2),
             (-0.5, 2.0 * consts::FRAC_PI_3),
-            (-0.707_106_8, 3.0 * consts::FRAC_PI_4),
+            (-consts::FRAC_1_SQRT_2, 3.0 * consts::FRAC_PI_4),
             (-0.866_025_4, 5.0 * consts::FRAC_PI_6),
             (-1.0, consts::PI),
         ];
         for &(x, attendu) in vecteurs {
             let r = acos(x);
-            assert!((r - attendu).abs() <= TOL, "acos({x}) = {r}, attendu {attendu}");
+            assert!(
+                (r - attendu).abs() <= TOL,
+                "acos({x}) = {r}, attendu {attendu}"
+            );
         }
     }
 
