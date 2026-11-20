@@ -15,7 +15,7 @@ exponentials, statistics, vectors, matrices, and quaternions.
 
 ```toml
 [dependencies]
-embedded-maths = "0.2"
+embedded-maths = "0.3"
 ```
 
 ## Function calls
