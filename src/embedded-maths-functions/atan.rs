@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-//! Arc tangente de `f32` pour `no_std`, sans `libm`.
+//! Arc tangent of `f32` for `no_std`, without `libm`.
 //!
 //! # Méthode
 //!

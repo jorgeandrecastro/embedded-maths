@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-//! Arc tangente à quatre quadrants de `f32` pour `no_std`, sans `libm`.
+//! Four-quadrant arc tangent of `f32` for `no_std`, without `libm`.
 //!
 //! # Méthode
 //!

@@ -13,3 +13,10 @@ categories = ["mathematics", "no-std", "embedded"]
 
 [dependencies]
 embedded-f32-sqrt = "0.2"
+embedded-invsqrt-f32 = { version = "0.1", default-features = false }
+embedded-exp-f32 = { version = "0.2", default-features = false }
+embedded-trig-f32 = { version = "0.3", default-features = false }
+embedded-stats-f32 = { version = "0.3", default-features = false }
+embedded-quaternion-f32 = { version = "0.2", default-features = false }
+embedded-vector = { version = "0.2", default-features = false }
+embedded-matrix = { version = "0.3", default-features = false }

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-//! Valeur absolue de `f32` pour `no_std`, sans `libm`.
+//! Absolute value of `f32` for `no_std`, without `libm`.
 //!
 //! L'opération se réduit à effacer le bit de signe (bit 31) : une seule
 //! instruction `AND` sur Cortex-M, RISC-V (ESP32-C3) et RP2350, sans

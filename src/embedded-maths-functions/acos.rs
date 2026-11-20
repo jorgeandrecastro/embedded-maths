@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-2.0-or-later
-//! Arc cosinus de `f32` pour `no_std`, sans `libm`.
+//! Arc cosine of `f32` for `no_std`, without `libm`.
 //!
 //! # Méthode
 //!
