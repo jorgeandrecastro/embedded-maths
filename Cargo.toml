@@ -1,0 +1,15 @@
+[package]
+name = "embedded-maths"
+version = "0.1.0"
+edition = "2024"
+authors = ["Jorge Andre Castro <georgeandrec@gmail.com>"]
+license = "GPL-2.0-or-later"
+description = "No_std math functions for embedded Rust"
+repository = "https://github.com/jorgeandrecastro/embedded-maths"
+documentation = "https://docs.rs/embedded-maths"
+readme = "README.md"
+keywords = ["embedded", "no_std", "math", "f32"]
+categories = ["mathematics", "no-std", "embedded"]
+
+[dependencies]
+embedded-f32-sqrt = "0.2"
