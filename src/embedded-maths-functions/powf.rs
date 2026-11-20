@@ -23,3 +23,23 @@ pub fn powf(base: f32, exponent: f32) -> f32 {
     }
     exp(exponent * ln(base))
 }
+
+#[cfg(test)]
+mod tests {
+    use super::powf;
+
+    #[test]
+    fn known_values() {
+        assert_eq!(powf(2.0, 3.0) as i32, 8);
+        assert_eq!(powf(9.0, 0.5) as i32, 3);
+        assert_eq!(powf(7.0, 0.0), 1.0);
+        assert_eq!(powf(1.0, 123.0), 1.0);
+    }
+
+    #[test]
+    fn special_values() {
+        assert!(powf(-2.0, 0.5).is_nan());
+        assert!(powf(2.0, f32::NAN).is_nan());
+        assert_eq!(powf(f32::INFINITY, 2.0), f32::INFINITY);
+    }
+}

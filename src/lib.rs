@@ -1,3 +1,49 @@
+//! Hardware-friendly `f32` mathematics for Rust `no_std` environments.
+//!
+//! `embedded-maths` exposes scalar functions, vectors, matrices, quaternions,
+//! statistics, and compile-time metadata without requiring `micromath`.
+//! Implementations are delegated to focused crates when that provides better
+//! accuracy, compatibility, or maintenance boundaries.
+//!
+//! # Quick example
+//!
+//! ```rust
+//! use embedded_maths::{asin, cos, hypot, sin, sqrt};
+//!
+//! let angle = 0.5_f32;
+//! assert!((sin(angle) - 0.479_425_55).abs() < 1e-6);
+//! assert!((cos(angle) - 0.877_582_6).abs() < 1e-6);
+//! assert!((asin(0.5) - core::f32::consts::FRAC_PI_6).abs() < 1e-6);
+//! assert_eq!(hypot(3.0, 4.0), 5.0);
+//! assert_eq!(sqrt(9.0).unwrap(), 3.0);
+//! ```
+//!
+//! # API groups
+//!
+//! - [`sin`], [`cos`], [`tan`], [`sincos`]
+//! - [`asin`], [`acos`], [`atan`], [`atan2`]
+//! - [`sqrt`], [`invsqrt`], [`hypot`]
+//! - [`exp`], [`ln`], [`log`], [`log2`], [`log10`]
+//! - [`powf`], [`powi`], [`inv`], [`recip`]
+//! - [`ceil`], [`floor`], [`round`], [`trunc`], [`fract`]
+//! - [`abs`], [`signum`], [`copysign`]
+//! - [`mean`], [`variance`], [`std_dev`], [`StreamingStats`]
+//! - [`Vec2`], [`Vec3`], [`Vec4`], [`Quaternion`]
+//! - [`Matrix2x2`], [`Matrix3x3`]
+//!
+//! # Error behavior
+//!
+//! Invalid-domain functions generally preserve the behavior documented in
+//! their implementation crate: `sqrt` and `invsqrt` return `Result`; inverse
+//! trigonometric functions return `NaN` outside their domain; infinities and
+//! `NaN` values are handled explicitly where relevant.
+//!
+//! # License
+//!
+//! Licensed under `GPL-2.0-or-later`.
+
+#![cfg_attr(not(test), no_std)]
+
 #[path = "embedded-maths-functions/abs.rs"]
 pub mod abs;
 

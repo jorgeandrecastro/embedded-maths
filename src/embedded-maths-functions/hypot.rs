@@ -22,3 +22,21 @@ pub fn hypot(x: f32, y: f32) -> f32 {
     let factor = sqrt(1.0 + ratio * ratio).unwrap_or(1.0);
     high * factor
 }
+
+#[cfg(test)]
+mod tests {
+    use super::hypot;
+
+    #[test]
+    fn known_and_symmetric_values() {
+        assert_eq!(hypot(3.0, 4.0), 5.0);
+        assert_eq!(hypot(-3.0, 4.0), 5.0);
+        assert_eq!(hypot(0.0, 0.0), 0.0);
+    }
+
+    #[test]
+    fn special_values() {
+        assert_eq!(hypot(f32::INFINITY, 1.0), f32::INFINITY);
+        assert!(hypot(f32::NAN, 1.0).is_nan());
+    }
+}
