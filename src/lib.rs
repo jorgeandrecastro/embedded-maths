@@ -1,7 +1,8 @@
 //! Hardware-friendly `f32` mathematics for Rust `no_std` environments.
 //!
 //! `embedded-maths` exposes scalar functions, vectors, matrices, quaternions,
-//! statistics, and compile-time metadata without requiring `micromath`.
+//! statistics, probability distributions, and compile-time metadata without
+//! requiring `micromath`.
 //! Implementations are delegated to focused crates when that provides better
 //! accuracy, compatibility, or maintenance boundaries.
 //!
@@ -28,6 +29,8 @@
 //! - [`ceil()`], [`floor()`], [`round()`], [`trunc()`], [`fract()`]
 //! - [`abs()`], [`signum()`], [`copysign()`]
 //! - [`mean`], [`variance`], [`std_dev`], [`StreamingStats`]
+//! - [`gaussian_pdf()`], [`normal_cdf()`], [`normal_quantile()`]
+//! - [`box_muller()`], [`exponential_pdf()`]
 //! - [`Vec2`], [`Vec3`], [`Vec4`], [`Quaternion`]
 //! - [`Matrix2x2`], [`Matrix3x3`]
 //!
@@ -115,6 +118,8 @@ pub mod tan;
 #[path = "embedded-maths-functions/trunc.rs"]
 pub mod trunc;
 
+#[path = "laws.rs"]
+pub mod laws;
 #[path = "matrix.rs"]
 pub mod matrix;
 #[path = "quaternion.rs"]
@@ -146,6 +151,7 @@ pub use fract::fract;
 pub use hypot::hypot;
 pub use inv::inv;
 pub use invsqrt::inv_sqrt as invsqrt;
+pub use laws::{box_muller, exponential_pdf, gaussian_pdf, normal_cdf, normal_quantile};
 pub use ln::ln;
 pub use log::log;
 pub use log2::log2;

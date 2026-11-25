@@ -9,13 +9,14 @@
 `embedded-maths` is a collection of mathematical functions for embedded Rust
 and `no_std` environments. It provides an extensible scalar API and
 dependency-backed implementations for trigonometry, square roots,
-exponentials, statistics, vectors, matrices, and quaternions.
+exponentials, statistics, probability distributions, vectors, matrices, and
+quaternions.
 
 ## Installation
 
 ```toml
 [dependencies]
-embedded-maths = "0.3"
+embedded-maths = "0.4"
 ```
 
 ## Function calls
@@ -106,6 +107,41 @@ assert_eq!(variance(&values).unwrap(), 4.0);
 assert_eq!(std_dev(&values).unwrap(), 2.0);
 ```
 
+## Probability distributions
+
+Gaussian density, standard normal CDF and quantile, Box-Muller sampling and
+the exponential density, in `f32`, with no heap allocation and no `libm`.
+
+```rust
+use embedded_maths::{
+    box_muller, exponential_pdf, gaussian_pdf, normal_cdf, normal_quantile,
+};
+
+// Density of N(0, 1) at x = 0: ≈ 0.39894228
+assert!((gaussian_pdf(0.0, 0.0, 1.0) - 0.398_942_3).abs() < 1e-4);
+
+// P(X <= 1) for X ~ N(0, 1): ≈ 0.8413447
+assert!((normal_cdf(1.0) - 0.841_344_7).abs() < 1e-3);
+
+// Value x such that P(X <= x) = 0.975: ≈ 1.96
+assert!((normal_quantile(0.975) - 1.96).abs() < 1e-2);
+
+// Two independent N(0, 1) samples from two uniforms on (0, 1),
+// e.g. coming from a hardware RNG
+let (z1, z2) = box_muller(0.42, 0.13);
+
+// Density at x = 0.5 for a rate (lambda) of 2.0: 2 * exp(-1)
+assert!((exponential_pdf(0.5, 2.0) - 0.735_758_9).abs() < 1e-3);
+```
+
+| Function | Description |
+|----------|-------------|
+| `gaussian_pdf(x, mu, sigma)` | Density of the normal distribution `N(mu, sigma²)` |
+| `normal_cdf(x)` | Cumulative distribution function of `N(0, 1)` |
+| `normal_quantile(p)` | Quantile (inverse CDF) of `N(0, 1)` |
+| `box_muller(u1, u2)` | Two independent normals from two uniforms |
+| `exponential_pdf(x, rate)` | Density of the exponential distribution |
+
 ## Dependency-backed implementations
 
 Specialized Jorge Andre Castro crates provide the core implementations when
@@ -116,6 +152,7 @@ they are available:
 - [`embedded-exp-f32`](https://crates.io/crates/embedded-exp-f32) for exponential calculations
 - [`embedded-trig-f32`](https://crates.io/crates/embedded-trig-f32) for trigonometric calculations
 - [`embedded-stats-f32`](https://crates.io/crates/embedded-stats-f32) for statistics
+- [`embedded-laws-f32`](https://crates.io/crates/embedded-laws-f32) for probability distributions
 - [`embedded-vector`](https://github.com/jorgeandrecastro/embedded-vector), [`embedded-matrix`](https://github.com/jorgeandrecastro/embedded-matrix), and [`embedded-quaternion-f32`](https://github.com/jorgeandrecastro/embedded-quaternion-f32) for linear algebra
 
 
