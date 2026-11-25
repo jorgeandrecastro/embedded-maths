@@ -16,7 +16,7 @@ quaternions.
 
 ```toml
 [dependencies]
-embedded-maths = "0.4"
+embedded-maths = "0.5"
 ```
 
 ## Function calls
@@ -109,12 +109,18 @@ assert_eq!(std_dev(&values).unwrap(), 2.0);
 
 ## Probability distributions
 
-Gaussian density, standard normal CDF and quantile, Box-Muller sampling and
-the exponential density, in `f32`, with no heap allocation and no `libm`.
+More than a dozen continuous and discrete laws with density or mass function,
+CDF, quantile (inverse CDF) and sampling, in `f32`, with no heap allocation
+and no `libm`.
+
+Convention: `*_pdf` is a density, `*_pmf` a probability mass function,
+`*_cdf` the cumulative distribution function and `*_quantile` its inverse.
 
 ```rust
 use embedded_maths::{
-    box_muller, exponential_pdf, gaussian_pdf, normal_cdf, normal_quantile,
+    Xorshift32, box_muller, exponential_cdf, exponential_pdf, gaussian_cdf,
+    gaussian_pdf, gaussian_quantile, normal_cdf, normal_quantile, poisson_pmf,
+    weibull_cdf,
 };
 
 // Density of N(0, 1) at x = 0: ≈ 0.39894228
@@ -123,24 +129,78 @@ assert!((gaussian_pdf(0.0, 0.0, 1.0) - 0.398_942_3).abs() < 1e-4);
 // P(X <= 1) for X ~ N(0, 1): ≈ 0.8413447
 assert!((normal_cdf(1.0) - 0.841_344_7).abs() < 1e-3);
 
+// P(X <= 25) for a sensor reading X ~ N(20, 3²): ≈ 0.9522
+assert!((gaussian_cdf(25.0, 20.0, 3.0) - 0.952_2).abs() < 1e-3);
+
 // Value x such that P(X <= x) = 0.975: ≈ 1.96
 assert!((normal_quantile(0.975) - 1.96).abs() < 1e-2);
 
-// Two independent N(0, 1) samples from two uniforms on (0, 1),
-// e.g. coming from a hardware RNG
-let (z1, z2) = box_muller(0.42, 0.13);
+// 95 % upper bound for X ~ N(20, 3²): ≈ 24.93
+assert!((gaussian_quantile(0.975, 20.0, 3.0) - 24.88).abs() < 1e-1);
 
 // Density at x = 0.5 for a rate (lambda) of 2.0: 2 * exp(-1)
 assert!((exponential_pdf(0.5, 2.0) - 0.735_758_9).abs() < 1e-3);
+
+// Probability that a component fails before t = 1000 h
+let p_weibull = weibull_cdf(1000.0, 1.5, 2000.0);
+let p_exp = exponential_cdf(1000.0, 1.0 / 2000.0);
+assert!(p_weibull > 0.0 && p_exp > 0.0);
+
+// P(X = 2) for X ~ Poisson(3): ≈ 0.2240
+assert!((poisson_pmf(2, 3.0) - 0.224_042).abs() < 1e-3);
+
+// Two independent N(0, 1) samples from two uniforms on (0, 1),
+// e.g. coming from a hardware RNG
+let (_z1, _z2) = box_muller(0.42, 0.13);
+
+// Or use the built-in PRNG (not cryptographic)
+let mut rng = Xorshift32::new(0xC0FFEE);
+let _noise = rng.normal(0.0, 0.5);
+let _wait = rng.exponential(2.0);
+let _hits = rng.poisson(4.0);
 ```
 
-| Function | Description |
-|----------|-------------|
-| `gaussian_pdf(x, mu, sigma)` | Density of the normal distribution `N(mu, sigma²)` |
-| `normal_cdf(x)` | Cumulative distribution function of `N(0, 1)` |
-| `normal_quantile(p)` | Quantile (inverse CDF) of `N(0, 1)` |
-| `box_muller(u1, u2)` | Two independent normals from two uniforms |
-| `exponential_pdf(x, rate)` | Density of the exponential distribution |
+### Continuous laws
+
+| Law | Functions |
+|-----|-----------|
+| Normal `N(0, 1)` | `normal_pdf`, `normal_cdf`, `normal_quantile` |
+| Gaussian `N(mu, sigma²)` | `gaussian_pdf`, `gaussian_cdf`, `gaussian_quantile` |
+| Uniform `U(a, b)` | `uniform_pdf`, `uniform_cdf`, `uniform_quantile` |
+| Exponential `Exp(rate)` | `exponential_pdf`, `exponential_cdf`, `exponential_quantile`, `exponential_sample` |
+| Laplace `(mu, b)` | `laplace_pdf`, `laplace_cdf`, `laplace_quantile` |
+| Logistic `(mu, s)` | `logistic_pdf`, `logistic_cdf`, `logistic_quantile` |
+| Cauchy `(x0, gamma)` | `cauchy_pdf`, `cauchy_quantile` |
+| Rayleigh `(sigma)` | `rayleigh_pdf`, `rayleigh_cdf`, `rayleigh_quantile` |
+| Weibull `(k, lambda)` | `weibull_pdf`, `weibull_cdf`, `weibull_quantile` |
+| Log-normal `(mu, sigma)` | `lognormal_pdf`, `lognormal_cdf`, `lognormal_quantile` |
+| Gamma `(k, theta)` | `gamma_pdf` |
+| Beta `(alpha, beta)` | `beta_pdf` |
+| Student's t `(nu)` | `student_t_pdf` |
+
+### Discrete laws
+
+| Law | Functions |
+|-----|-----------|
+| Bernoulli `(p)` | `bernoulli_pmf` |
+| Geometric `(p)` | `geometric_pmf`, `geometric_cdf` |
+| Poisson `(lambda)` | `poisson_pmf`, `poisson_cdf` |
+| Binomial `(n, p)` | `binomial_pmf`, `binomial_cdf` |
+
+### Helpers
+
+| Item | Description |
+|------|-------------|
+| `box_muller(u1, u2)` | Two independent `N(0, 1)` samples from two uniforms on `(0, 1)` |
+| `ln_approx(x)` | Natural logarithm, accurate over the whole `f32` range |
+| `erf_approx(x)`, `erfc_approx(x)` | Error function and its complement |
+| `ln_gamma(x)` | `ln Γ(x)` for `x > 0` |
+| `Xorshift32` | Tiny `no_std` PRNG with built-in samplers (`normal`, `exponential`, `poisson`, ...) |
+
+All computations are done in single precision. `erfc` has an absolute error
+below about `1.5e-7`, and CDF/quantile round trips agree to about `1e-4`. The
+`Xorshift32::poisson` sampler uses Knuth's method and is only suitable for
+modest `lambda` (about 30 or less).
 
 ## Dependency-backed implementations
 

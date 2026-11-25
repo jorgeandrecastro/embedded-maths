@@ -22,9 +22,9 @@ checksum = "66196a6fdee49f4474c1702ca72d52b7548f3f29ed33728cf6e1ae67b0a19397"
 
 [[package]]
 name = "embedded-laws-f32"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fea6aea94dcf01b8830fcf5bbfe58d1da446ba200b963906f651fb741339d1e"
+checksum = "86e00ddf8d93134b95be98b718b92142a13a94d4f59e170ab50eb530ca951907"
 dependencies = [
  "embedded-exp-f32",
  "embedded-f32-sqrt",
@@ -33,7 +33,7 @@ dependencies = [
 
 [[package]]
 name = "embedded-maths"
-version = "0.4.1"
+version = "0.5.0"
 dependencies = [
  "embedded-exp-f32",
  "embedded-f32-sqrt",

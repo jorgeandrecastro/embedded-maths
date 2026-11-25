@@ -29,8 +29,17 @@
 //! - [`ceil()`], [`floor()`], [`round()`], [`trunc()`], [`fract()`]
 //! - [`abs()`], [`signum()`], [`copysign()`]
 //! - [`mean`], [`variance`], [`std_dev`], [`StreamingStats`]
-//! - [`gaussian_pdf()`], [`normal_cdf()`], [`normal_quantile()`]
-//! - [`box_muller()`], [`exponential_pdf()`]
+//! - Continuous laws: [`normal_pdf()`], [`normal_cdf()`], [`normal_quantile()`],
+//!   [`gaussian_pdf()`], [`gaussian_cdf()`], [`gaussian_quantile()`],
+//!   [`uniform_pdf()`], [`exponential_pdf()`], [`laplace_pdf()`],
+//!   [`logistic_pdf()`], [`cauchy_pdf()`], [`rayleigh_pdf()`],
+//!   [`weibull_pdf()`], [`lognormal_pdf()`], [`gamma_pdf()`],
+//!   [`beta_pdf()`], [`student_t_pdf()`] (each with its CDF and quantile
+//!   where available, see the [`laws`] module)
+//! - Discrete laws: [`bernoulli_pmf()`], [`geometric_pmf()`],
+//!   [`poisson_pmf()`], [`binomial_pmf()`] (and their CDFs)
+//! - Sampling and special functions: [`box_muller()`], [`Xorshift32`],
+//!   [`ln_approx()`], [`erf_approx()`], [`erfc_approx()`], [`ln_gamma()`]
 //! - [`Vec2`], [`Vec3`], [`Vec4`], [`Quaternion`]
 //! - [`Matrix2x2`], [`Matrix3x3`]
 //!
@@ -151,7 +160,16 @@ pub use fract::fract;
 pub use hypot::hypot;
 pub use inv::inv;
 pub use invsqrt::inv_sqrt as invsqrt;
-pub use laws::{box_muller, exponential_pdf, gaussian_pdf, normal_cdf, normal_quantile};
+pub use laws::{
+    Xorshift32, bernoulli_pmf, beta_pdf, binomial_cdf, binomial_pmf, box_muller, cauchy_pdf,
+    cauchy_quantile, erf_approx, erfc_approx, exponential_cdf, exponential_pdf,
+    exponential_quantile, exponential_sample, gamma_pdf, gaussian_cdf, gaussian_pdf,
+    gaussian_quantile, geometric_cdf, geometric_pmf, laplace_cdf, laplace_pdf, laplace_quantile,
+    ln_approx, ln_gamma, logistic_cdf, logistic_pdf, logistic_quantile, lognormal_cdf,
+    lognormal_pdf, lognormal_quantile, normal_cdf, normal_pdf, normal_quantile, poisson_cdf,
+    poisson_pmf, rayleigh_cdf, rayleigh_pdf, rayleigh_quantile, student_t_pdf, uniform_cdf,
+    uniform_pdf, uniform_quantile, weibull_cdf, weibull_pdf, weibull_quantile,
+};
 pub use ln::ln;
 pub use log::log;
 pub use log2::log2;
