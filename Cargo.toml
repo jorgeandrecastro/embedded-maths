@@ -1,6 +1,6 @@
 [package]
 name = "embedded-maths"
-version = "0.4.0"
+version = "0.4.1"
 edition = "2024"
 authors = ["Jorge Andre Castro <georgeandrec@gmail.com>"]
 license = "GPL-2.0-or-later"
@@ -20,4 +20,4 @@ embedded-stats-f32 = { version = "0.3", default-features = false }
 embedded-quaternion-f32 = { version = "0.2", default-features = false }
 embedded-vector = { version = "0.2", default-features = false }
 embedded-matrix = { version = "0.3", default-features = false }
-embedded-laws-f32 = { version = "0.2", default-features = false }
+embedded-laws-f32 = { version = "0.3", default-features = false }
