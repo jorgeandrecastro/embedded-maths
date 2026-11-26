@@ -4,9 +4,9 @@ version = 4
 
 [[package]]
 name = "embedded-exp-f32"
-version = "0.2.0"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "36d7117264debe6c8e47e4eb0819e717a809c085f51eac6ae49995046de98699"
+checksum = "459a2657dc438653a3371369f0d17e684f8834b60726c3e63927dc286e4626d8"
 
 [[package]]
 name = "embedded-f32-sqrt"
@@ -15,82 +15,82 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1fb45ffa2451b2b2b68f3b97bf16e42c2ae25bb642f08ce772fe53a4c47f4f84"
 
 [[package]]
-name = "embedded-invsqrt-f32"
-version = "0.1.0"
+name = "embedded-f32-sqrt"
+version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "66196a6fdee49f4474c1702ca72d52b7548f3f29ed33728cf6e1ae67b0a19397"
+checksum = "00ae011bd9ea525b94670f670718cc5d9e19c84168ea55350a52416badc142a9"
+
+[[package]]
+name = "embedded-invsqrt-f32"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc460c4e2dd73625577baa8d3c4c2c2c5e4ef45d04a11afae420fb0abdc578df"
 
 [[package]]
 name = "embedded-laws-f32"
-version = "0.4.0"
+version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "86e00ddf8d93134b95be98b718b92142a13a94d4f59e170ab50eb530ca951907"
+checksum = "ee94bd341680bc1cd1cb1c7bc7dd67431ff34d474b2aa7d23e59f72ce901bfa5"
 dependencies = [
  "embedded-exp-f32",
- "embedded-f32-sqrt",
- "embedded-trig-f32 0.3.1",
+ "embedded-f32-sqrt 1.0.0",
+ "embedded-trig-f32",
 ]
 
 [[package]]
 name = "embedded-maths"
-version = "0.5.0"
+version = "0.6.0"
 dependencies = [
  "embedded-exp-f32",
- "embedded-f32-sqrt",
+ "embedded-f32-sqrt 1.0.0",
  "embedded-invsqrt-f32",
  "embedded-laws-f32",
  "embedded-matrix",
  "embedded-quaternion-f32",
  "embedded-stats-f32",
- "embedded-trig-f32 0.3.1",
+ "embedded-trig-f32",
  "embedded-vector",
 ]
 
 [[package]]
 name = "embedded-matrix"
-version = "0.3.1"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7806288486a59a314913da73d6e9382774839ae5d63d20ec5c65648797ab5305"
+checksum = "1e9de6439949d6dd0401c99d1c83d85a8e2024462c576cc57e882a965e72b7cc"
 
 [[package]]
 name = "embedded-quaternion-f32"
-version = "0.2.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14b8717dbede80197da9d36c8e51484ccb84b957a9d4c1a5515b0f2af54e997f"
+checksum = "3f2a403241e69679bfdc831bb01c40223e0dbc6c10cdb707cf18bbfade0a0ef2"
 dependencies = [
- "embedded-f32-sqrt",
- "embedded-trig-f32 0.2.0",
+ "embedded-f32-sqrt 1.0.0",
+ "embedded-trig-f32",
 ]
 
 [[package]]
 name = "embedded-stats-f32"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "09200e19d73b168b528e833eed74963ec71a20b0799b3897b7483157dcec3523"
+checksum = "4e6181dd7562afc27b15f7feb688bb1cc7dcacdc24e4a4ade86bccb2f0f0c9d7"
 dependencies = [
- "embedded-f32-sqrt",
+ "embedded-f32-sqrt 1.0.0",
 ]
 
 [[package]]
 name = "embedded-trig-f32"
-version = "0.2.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbda8f67a16da7b48949d605dea49620d301fb4e4800c69df9b3c7dc9397f13a"
-
-[[package]]
-name = "embedded-trig-f32"
-version = "0.3.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1657c9b6339a6b77a5023ad28b9c69f572c7db20c8841690209ab3812ec0c384"
+checksum = "c70d5158b479b56dd85b7f74a4c7e23e6ef60e54a692843b4c9d1480297291e8"
 dependencies = [
- "embedded-f32-sqrt",
+ "embedded-f32-sqrt 0.2.1",
 ]
 
 [[package]]
 name = "embedded-vector"
-version = "0.2.1"
+version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d296c7439ab7604bce01f1f1d379effc2a0f260c3f76506890766b8b89f46969"
+checksum = "16cd50b370e58a23b568d22bc6215877764a0df57ec330b6a3d320f22ad8c8a7"
 dependencies = [
- "embedded-f32-sqrt",
+ "embedded-f32-sqrt 0.2.1",
 ]

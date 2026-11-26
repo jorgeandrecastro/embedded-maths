@@ -1,9 +1,9 @@
 [package]
 name = "embedded-maths"
-version = "0.5.0"
+version = "0.6.0"
 edition = "2024"
 authors = ["Jorge Andre Castro <georgeandrec@gmail.com>"]
-license = "GPL-2.0-or-later"
+license = "MIT OR Apache-2.0"
 description = "No_std math functions for embedded Rust"
 repository = "https://github.com/jorgeandrecastro/embedded-maths"
 documentation = "https://docs.rs/embedded-maths"
@@ -12,12 +12,12 @@ keywords = ["embedded", "no_std", "math", "f32"]
 categories = ["mathematics", "no-std", "embedded"]
 
 [dependencies]
-embedded-f32-sqrt = "0.2"
-embedded-invsqrt-f32 = { version = "0.1", default-features = false }
-embedded-exp-f32 = { version = "0.2", default-features = false }
-embedded-trig-f32 = { version = "0.3", default-features = false }
-embedded-stats-f32 = { version = "0.3", default-features = false }
-embedded-quaternion-f32 = { version = "0.2", default-features = false }
-embedded-vector = { version = "0.2", default-features = false }
-embedded-matrix = { version = "0.3", default-features = false }
-embedded-laws-f32 = { version = "0.4", default-features = false }
+embedded-f32-sqrt = "1.0.0"
+embedded-invsqrt-f32 = { version = "0.2", default-features = false }
+embedded-exp-f32 = { version = "0.3", default-features = false }
+embedded-trig-f32 = { version = "0.4", default-features = false }
+embedded-stats-f32 = { version = "0.4", default-features = false }
+embedded-quaternion-f32 = { version = "0.4", default-features = false }
+embedded-vector = { version = "0.3", default-features = false }
+embedded-matrix = { version = "0.4", default-features = false }
+embedded-laws-f32 = { version = "0.7", default-features = false }

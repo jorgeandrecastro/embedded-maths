@@ -3,7 +3,8 @@
 [![Crates.io](https://img.shields.io/crates/v/embedded-maths.svg)](https://crates.io/crates/embedded-maths)
 [![Documentation](https://docs.rs/embedded-maths/badge.svg)](https://docs.rs/embedded-maths)
 [![CI](https://github.com/jorgeandrecastro/embedded-maths/actions/workflows/ci.yml/badge.svg)](https://github.com/jorgeandrecastro/embedded-maths/actions/workflows/ci.yml)
-[![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+[![License: MIT OR Apache-2.0](https://img.shields.io/badge/License-MIT%20or%20Apache--2.0-blue.svg)](https://opensource.org/licenses/MIT)
+
 [![GitHub](https://img.shields.io/badge/GitHub-jorgeandrecastro-181717?logo=github)](https://github.com/jorgeandrecastro/embedded-maths)
 
 `embedded-maths` is a collection of mathematical functions for embedded Rust
@@ -16,7 +17,7 @@ quaternions.
 
 ```toml
 [dependencies]
-embedded-maths = "0.5"
+embedded-maths = "0.6"
 ```
 
 ## Function calls
@@ -216,7 +217,16 @@ they are available:
 - [`embedded-vector`](https://github.com/jorgeandrecastro/embedded-vector), [`embedded-matrix`](https://github.com/jorgeandrecastro/embedded-matrix), and [`embedded-quaternion-f32`](https://github.com/jorgeandrecastro/embedded-quaternion-f32) for linear algebra
 
 
-## License
+## 🛡️ License
 
-Licensed under the GNU General Public License, version 2 or later
-(`GPL-2.0-or-later`).
+Licensed under either of:
+
+    MIT license (http://opensource.org/licenses/MIT)
+
+    Apache License, Version 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
+at your option.
+
+## 🦅 About
+
+Developed by Jorge Andre Castro.
